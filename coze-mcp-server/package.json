@@ -1,0 +1,33 @@
+{
+  "name": "coze-mcp-server",
+  "version": "0.1.0",
+  "description": "A Model Context Protocol server for Coze API",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "bin": {
+    "coze-mcp-server": "./build/index.js"
+  },
+  "files": [
+    "build"
+  ],
+  "scripts": {
+    "build": "tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\"",
+    "prepare": "npm run build",
+    "watch": "tsc --watch",
+    "inspector": "npx @modelcontextprotocol/inspector build/index.js",
+    "start": "cross-env COZE_API_KEY=$COZE_API_KEY BOT_ID=$BOT_ID node build/index.js",
+    "start:npx": "cross-env COZE_API_KEY=$COZE_API_KEY BOT_ID=$BOT_ID npx coze-mcp-server"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "0.6.0",
+    "axios": "^1.9.0",
+    "cross-env": "^7.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "typescript": "^5.3.3"
+  }
+}

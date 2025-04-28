@@ -1,0 +1,9 @@
+发送日报的请求，再1500毫秒的频率轮询，不超过30次
+```curl --location --request GET 'https://api.coze.cn/v3/chat/retrieve?chat_id=id&conversation_id=conversation_id' \--header 'Authorization: Bearer pat_dGstyY6RZxxxxx' \--header 'Content-Type: application/json' \```
+返回数据结构
+```{// 在 chat 事件里，data 字段中的 id 为 Chat ID，即会话 ID。    "id": "737662389258662****",    "conversation_id": "737554565555041****",    "bot_id": "736661612448078****",    "completed_at": 1717508113,    "last_error": {        "code": 0,        "msg": ""    },    "status": "completed",    "usage": {        "token_count": 6644,        "output_count": 766,        "input_count": 5878    }}```
+查看"status"直到"completed"时，调用
+```curl --location --request GET 'https://api.coze.cn/v3/chat/message/list?chat_id=id&conversation_id=conversation_id' \--header 'Authorization: Bearer pat_OYDacMzM3WyOWV3Dtj2bHRMymzxP****' \--header 'Content-Type: application/json' \```
+返回数据结构
+```{    "code": 0,    "data": [        {            "bot_id": "737946218936519****",            "content": "{\"msg_type\":\"generate_answer_finish\",\"data\":\"\",\"from_module\":null,\"from_unit\":null}",            "content_type": "text",            "conversation_id": "738147352534297****",            "id": "738216762080970****",            "role": "assistant",            "type": "verbose"        },        {            "bot_id": "7379462189365198898",            "content": "2024 年 10 月 1 日是星期二。您可以通过日历或者相关的日期查询工具来核实确认。 ",            "content_type": "text",            "conversation_id": "738147352534297****",            "id": "738216760624724****",            "role": "assistant",            "type": "answer"        }    ],    "msg": "",    "detail": {        "logid": "20250106172024B5F607030EFFAD653960"    }}```
+获取type 为 answer类型的那一项里的content的内容，返回给 Client 端
