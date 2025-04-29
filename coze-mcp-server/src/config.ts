@@ -11,7 +11,7 @@ interface CozeConfig {
  * 默认配置
  */
 const defaultConfig: CozeConfig = {
-  apiKey: process.env.CHAT_API_KEY || '',
+  apiKey: process.env.COZE_API_KEY || '',
   botId: process.env.BOT_ID || '',
   userId: '12345678' // 默认用户ID
 };
